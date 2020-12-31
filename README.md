@@ -3,7 +3,7 @@
 ## 1️⃣ Getting Started
 
 ### API Base URL 
-`https://unit4-build-week-backend.herokuapp.com/api`
+`https://foodtruck-backend-api.herokuapp.com/api`
 
 ### To confirm the API is online...
 Send a GET request to the base URL. No headers or body is required for this test. Success will return status code 200. Failure will return error.  
