@@ -17,8 +17,8 @@ exports.up = function(knex) {
         tbl.text('truck_name').notNullable().unique()
         tbl.text('truck_img_url', 128)
         tbl.text('cusine_type', 128).notNullable()
-        tbl.decimal('current_location_lat', 128).notNullable()
-        tbl.decimal('current_location_long', 128).notNullable()
+        tbl.float('current_location_lat', 3, 10).notNullable()  // 3 value to the right of decimal, 10 to the left.
+        tbl.float('current_location_long', 3, 10).notNullable()
     })
 
     .createTable('menus', tbl => {
