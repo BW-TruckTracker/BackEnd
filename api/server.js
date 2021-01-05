@@ -7,7 +7,9 @@ const helmet = require('helmet');
 /// IMPORT ROUTERS
 const authRouter = require('./auth/auth-router.js');
 const trucksRouter = require('./trucks/trucks-router.js');
-const reviewsRouter = require('./reviews/reviews-router');
+const reviewsRouter = require('./reviews/reviews-router')
+const menusRouter = require('./menus/menus-router')
+
 
 const server = express();
 server.use(helmet());
@@ -16,8 +18,10 @@ server.use(express.json());
 
 /// API Routes
 server.use('/api/auth', authRouter); // for register and login. generates token.
+server.use('/api/menu', menusRouter)
 server.use('/api/trucks', trucksRouter);
-server.use('/api/reviews', reviewsRouter)
+server.use('/api/reviews', reviewsRouter);
+
 
 // TEST that the server is up and running
 server.get("/api", (req, res) => {
