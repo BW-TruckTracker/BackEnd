@@ -6,7 +6,7 @@ module.exports = {
   };
   
   function find() {
-    return db('trucks');
+    return db('trucks').select('truck_id', 'current_location_lat', 'current_location_long');
   }
 
   function getById(truck_id){
@@ -14,17 +14,6 @@ module.exports = {
       return Promise.resolve(null)
     }
     else{
-      return db('trucks').where({ truck_id }).first()
+      return db('trucks').where({ truck_id: truck_id })
     }
   }
-  
-//   function findBy(filter) {
-//     return db('users').where(filter);
-//   }
-//   async function add(user) {
-//     const [id] = await db('users').insert(user, 'user_id');
-//     return findById(id);
-//   }
-//   function findById(id) {
-//     return db('users').where({ user_id: id }).first();
-//   }
