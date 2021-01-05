@@ -14,32 +14,20 @@ Send a GET request to the base URL. No headers or body is required for this test
 ### All Endpoints
 | Request | URL | Description | Requires Auth Token |
 |----------|----------|----------|----------|
-|POST | /auth/register | register a new user | N |
+|POST | /auth/register | registers a new user | N |
 |POST | /auth/login | login an existing user | N |
+|GET | /menu/:id | returns menu when given truck id | Y |
+|GET | /reviews/:id | returns all reviews for a truck id | Y |
+|POST | /reviews | adds new review to the db | Y |
+|GET | /trucks | returns all trucks and their lat/lng | Y |
+|GET | /trucks/:id | returns all db data for a truck id | Y |
 </br>
-
-### Unfinished Endpoints (subject to change)
-| Request | URL | Description | Requires Auth Token |
-|----------|----------|----------|----------|
-|GET | /trucks | get all truck objects | Y |
-|GET | /trucks/reviews | get all reviews | Y |
-|GET | /trucks/reviews/:id | get reviews by food truck id | Y |
-|POST | /trucks/reviews/:id | add new review to db | Y |
 
 ---
 ## 3️⃣ Endpoints Details 
 
-### ***-Register New User***
-*Returns json blob about new user.*
+### ***POST /auth/register***
 
-* **URL:**
-
-  *baseURL*/auth/register
-
-* **Method:**
-
-  `POST`
-  
 *  **Request Body:**
  
    ```
@@ -47,22 +35,18 @@ Send a GET request to the base URL. No headers or body is required for this test
        "username": "foodieFan",             #required
        "password": "password123",           #required
        "email": "example@example.net",      #required
-       "current_location_lat": "16.293869", #optional, defaults to target market if not provided.
-       "current_location_long": "26.2199",  #optional, defaults to target market if not provided.
    }
    ```
 
 * **Success Response:**
 
-  **Code:** 201 <br />
+  * **Code:** 201 <br />
     **Content:** 
     
     ```
     {
         "user_id": 7,
         "username": "foodieFan",
-        "current_location_lat": "16.293869",
-        "current_location_long": "26.2199", 
         "created_at": "2020-12-23 19:56:28",
         "updated_at": "2020-12-23 19:56:28"
     }
@@ -80,17 +64,8 @@ Send a GET request to the base URL. No headers or body is required for this test
 
 ---
 
-### ***-Login***
-*Returns json blob containing authentication token.*
+### ***POST /auth/login***
 
-* **URL:**
-
-  *baseURL*/auth/login
-
-* **Method:**
-
-  `POST`
-  
 *  **Request Body:**
  
    ```
@@ -102,7 +77,7 @@ Send a GET request to the base URL. No headers or body is required for this test
 
 * **Success Response:**
 
-  **Code:** 200 <br />
+  * **Code:** 200 <br />
     **Content:** 
     
     ```
@@ -121,6 +96,201 @@ Send a GET request to the base URL. No headers or body is required for this test
 
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{ message: "Invalid credentials." }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ message: "(relevant message will be returned)" }`
+  
+  ---
+
+### ***GET /menu/:id***
+
+*  **Request Body:**
+ 
+   ```
+   no body required. empty body accepted.
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+    ```
+    [
+    {
+        "item_id": 1,
+        "truck_id": 1,
+        "item_name": "Taco Plate",
+        "item_description": "5 tacos with your choice of meat.",
+        "item_img_url": "",
+        "item_price": 10
+    },
+    {
+        "item_id": 2,
+        "truck_id": 1,
+        "item_name": "Burrito",
+        "item_description": "Grilled Burrito with your choice of meat.",
+        "item_img_url": "",
+        "item_price": 5
+    },
+    ]
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: 'could not find menu with given truck id' }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ message: "(relevant message will be returned)" }`
+  
+  ---
+
+### ***GET /reviews/:id***
+
+*  **Request Body:**
+ 
+   ```
+   no body required. empty body accepted.
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+    ```
+    [
+    {
+        "review_id": 1,
+        "truck_id": 1,
+        "user_id": 1,
+        "comment": "I'll be back!!"
+    },
+    {
+        "review_id": 6,
+        "truck_id": 1,
+        "user_id": 1,
+        "comment": "wow"
+    },
+    ]
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: 'could not find reviews with given truck id' }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ message: "(relevant message will be returned)" }`
+
+---
+
+### ***POST /reviews***
+
+*  **Request Body:**
+ 
+   ```
+   {
+      "truck_id": 1,                  #required
+      "user_id": 1,                   #required
+      "food_quality_star_count": 4,   #required
+      "service_star_count": 4,        #required
+      "cleanliness_star_count": 5,    #required
+      "comment": "woweee"             #optional
+   }
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ message: 'Successfully added new review to database.' }`
+
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ message: 'Required info missing from request body.' }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ message: "(relevant message will be returned)" }`
+
+---
+
+### ***GET /trucks***
+
+*  **Request Body:**
+ 
+   ```
+   no body required. empty body accepted.
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+    ```
+    [
+    {
+        "truck_id": 1,
+        "current_location_lat": 40.741895,
+        "current_location_long": -73.989308
+    },
+    {
+        "truck_id": 2,
+        "current_location_lat": 40.726108113826,
+        "current_location_long": -73.99883520642089
+    },
+    ]
+    ```
+
+ 
+* **Error Response:**
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ message: "(relevant message will be returned)" }`
+
+---
+
+### ***GET /trucks/:id***
+
+*  **Request Body:**
+ 
+   ```
+   no body required. empty body accepted.
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+    ```
+    {
+        "truck_id": 2,
+        "truck_name": "Only Beer",
+        "truck_img_url": null,
+        "cusine_type": "Beer",
+        "current_location_lat": 40.726108113826,
+        "current_location_long": -73.99883520642089,
+        "average_stars": 3
+    } 
+    ```
+
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: 'could not find truck with given truck id' }`
 
   OR
 
