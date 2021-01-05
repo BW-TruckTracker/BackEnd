@@ -14,4 +14,22 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+    const { id } = req.params
+    Trucks.getById(id)
+        .then(data => {
+            if(data){
+                res.json(data)
+            }
+            else{
+                res.status(404).json({ message: 'could not find trucks with given id' })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: err.message })
+        })
+})
+
+
+
 module.exports = router;
