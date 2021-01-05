@@ -30,4 +30,15 @@ router.get('/:id', (req, res) => {
         })
 })
 
+router.post('/', (req, res) => {
+    const review = req.body
+    Reviews.add(review)
+        .then(r => {
+            res.status(201).json(review)
+        })
+        .catch(err => {
+            res.status(500).json({ mesasge: err.message })
+        })
+})
+
 module.exports = router

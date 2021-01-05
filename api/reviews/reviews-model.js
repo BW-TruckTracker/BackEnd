@@ -12,5 +12,8 @@ module.exports = {
         else{
             return db('trucks_reviews').where({ truck_id }).first()
         }
+    },
+    async add(reviews){
+        return db('trucks_reviews').insert(reviews)
     }
 }
