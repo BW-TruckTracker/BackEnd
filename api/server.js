@@ -8,6 +8,8 @@ const helmet = require('helmet');
 const authRouter = require('./auth/auth-router.js');
 const trucksRouter = require('./trucks/trucks-router.js');
 
+const reviewsRouter = require('./reviews/reviews-router')
+
 const server = express();
 server.use(helmet());
 server.use(cors());
@@ -16,6 +18,7 @@ server.use(express.json());
 /// API Routes
 server.use('/api/auth', authRouter); // for register and login. generates token.
 server.use('/api/trucks', trucksRouter);
+server.use('/api/reviews', reviewsRouter)
 
 // TEST that the server is up and running
 server.get("/api", (req, res) => {
