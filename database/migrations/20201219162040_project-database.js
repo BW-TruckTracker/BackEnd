@@ -7,8 +7,6 @@ exports.up = function(knex) {
           tbl.text('username', 128).notNullable().unique()
           tbl.text('password', 256).notNullable()
           tbl.text('email', 128).notNullable()
-          tbl.decimal('current_location_lat', 128)
-          tbl.decimal('current_location_long', 128)
           tbl.timestamps(true, true)    // Adds created_at and updated_at columns on the database, setting each to datetime types. table.timestamps([useTimestamps], [defaultToNow])
     })
         

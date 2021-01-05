@@ -1,20 +1,10 @@
-const express = require('express')
-const router = express.Router()
-const Reviews = require('./reviews-model')
+const express = require('express');
+const router = express.Router();
+const Reviews = require('./reviews-model');
 
-
-router.get('/', (req, res) => {
-    Reviews.get()
-        .then(reviews => {
-            res.status(200).json(reviews)
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({ message: err.message })
-        })
-})
-
+/// ENDPOINTS
 router.get('/:id', (req, res) => {
+    //baseurl/api/reviews/:id
     const { id } = req.params
     Reviews.getById(id)
         .then(data => {
@@ -28,17 +18,18 @@ router.get('/:id', (req, res) => {
         .catch(err => {
             res.status(500).json({ message: err.message })
         })
-})
+});
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+    //baseurl/api/reviews/
     const review = req.body
-    Reviews.add(review)
-        .then(r => {
-            res.status(201).json(review)
-        })
-        .catch(err => {
-            res.status(500).json({ mesasge: err.message })
-        })
-})
+    try{
+        const newReview = await Reviews.add(review)
+        res.status(201).json(newReview[0])  //index 0 because collection will always have len 1
+    }
+    catch (e) {
+        res.status(500).json({ message: e.message})
+    }
+});
 
 module.exports = router

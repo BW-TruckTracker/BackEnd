@@ -9,29 +9,21 @@ exports.seed = function(knex) {
         {username: "fakeUser1",
          password: hash, 
          email: "example@.net",
-         current_location_lat: 40.75755460659445,
-         current_location_long: -73.9858318571167,
         },
 
         {username: "fakeUser2",
          password: hash, 
          email: "example@.net",
-         current_location_lat: 40.75755460659445,
-         current_location_long: -73.9858318571167,
         },
 
         {username: "fakeUser3",
         password: hash, 
         email: "example@.net",
-        current_location_lat: 40.75755460659445,
-        current_location_long: -73.9858318571167,
        },
 
        {username: "fakeUser4",
        password: hash, 
        email: "example@.net",
-       current_location_lat: 40.75755460659445,
-       current_location_long: -73.9858318571167,
       }
     ]);
   };
