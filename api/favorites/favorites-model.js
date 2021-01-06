@@ -12,11 +12,11 @@ module.exports = {
             return Promise.resolve(null)
         }
         else{
-            return db('user_favorites')
+            return db('user_favorites as uf')
             .join('users as u', 'u.user_id', '=', 'uf.user_id')
             .join('trucks as t', 't.truck_id', '=','uf.truck_id')
             .select('uf.user_id', 'u.username', 'uf.truck_id', 't.truck_name')
-            .where('user_id', id)
+            .where('uf.user_id', id)
         }
     },
     add(favorites){
