@@ -5,7 +5,7 @@ module.exports = {
         return db('user_favorites as uf')
         .join('users as u', 'u.user_id', '=', 'uf.user_id')
         .join('trucks as t', 't.truck_id', '=','uf.truck_id')
-        .select('uf.user_id', 'u.username', 'uf.truck_id', 't.truck_name')
+        .select('uf.id','uf.user_id', 'u.username', 'uf.truck_id', 't.truck_name')
     },
     getById(id){
         if(!id){
@@ -15,7 +15,7 @@ module.exports = {
             return db('user_favorites as uf')
             .join('users as u', 'u.user_id', '=', 'uf.user_id')
             .join('trucks as t', 't.truck_id', '=','uf.truck_id')
-            .select('uf.user_id', 'u.username', 'uf.truck_id', 't.truck_name')
+            .select('uf.id','uf.user_id', 'u.username', 'uf.truck_id', 't.truck_name')
             .where('uf.user_id', id)
         }
     },
@@ -24,5 +24,9 @@ module.exports = {
             .then(([id]) => {
                 return db('user_favorites').where('user_id', id)
             })
+    },
+    delete(id){
+        return db('user_favorites')
+        .del().where({ id })
     }
 }

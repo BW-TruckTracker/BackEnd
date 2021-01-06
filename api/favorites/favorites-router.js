@@ -41,5 +41,16 @@ router.post('/', (req, res) => {
         })
 })
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params
+    Favorites.delete(id)
+        .then(data => {
+            res.status(201).json(data)
+        })
+        .catch(err => {
+            res.status(500).json({ message: err.message })
+        })
+})
+
 
 module.exports = router
