@@ -9,6 +9,7 @@ const authRouter = require('./auth/auth-router.js');
 const trucksRouter = require('./trucks/trucks-router.js');
 const reviewsRouter = require('./reviews/reviews-router')
 const menusRouter = require('./menus/menus-router')
+const favoritesRouter = require('./favorites/favorites-router')
 
 
 const server = express();
@@ -21,6 +22,7 @@ server.use('/api/auth', authRouter); // for register and login. generates token.
 server.use('/api/menu', menusRouter)
 server.use('/api/trucks', trucksRouter);
 server.use('/api/reviews', reviewsRouter);
+server.use('/api/favorites', favoritesRouter)
 
 
 // TEST that the server is up and running
