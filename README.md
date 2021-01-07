@@ -104,14 +104,14 @@ Send a GET request to the base URL. No headers or body is required for this test
   * **Code:** 500 SERVER ERROR <br />
     **Content:** `{ message: "(relevant message will be returned)" }`
   
-  ---
+---
 
 ### ***GET /favorites/:id***
 
 *  **Request Body:**
  
    ```
-  no body required. empty body accepted.
+   no body required. empty body accepted.
    ```
 
 * **Success Response:**
@@ -120,22 +120,22 @@ Send a GET request to the base URL. No headers or body is required for this test
     **Content:** 
     
     ```
-  [
-    {
-        "fav_id": 5,
-        "user_id": 2,
-        "truck_id": 3,
-        "truck_name": "Bahn Mi",
-        "cusine_type": "Thai"
-    },
-    {
-        "fav_id": 6,
-        "user_id": 2,
-        "truck_id": 7,
-        "truck_name": "Expensive Smoothies",
-        "cusine_type": "Health and Wellness"
-    },
-  ]
+    [
+      {
+          "fav_id": 5,
+          "user_id": 2,
+          "truck_id": 3,
+          "truck_name": "Bahn Mi",
+          "cusine_type": "Thai"
+      },
+      {
+          "fav_id": 6,
+          "user_id": 2,
+          "truck_id": 7,
+          "truck_name": "Expensive Smoothies",
+          "cusine_type": "Health and Wellness"
+      },
+    ]
     ```
  
 * **Error Response:**
@@ -148,7 +148,8 @@ Send a GET request to the base URL. No headers or body is required for this test
   * **Code:** 500 SERVER ERROR <br />
     **Content:** `{ message: "(relevant message will be returned)" }`
   
-    ---
+---
+
 ### ***POST /favorites***
 
 *  **Request Body:**
@@ -180,8 +181,8 @@ Send a GET request to the base URL. No headers or body is required for this test
 
   * **Code:** 500 SERVER ERROR <br />
     **Content:** `{ message: "(relevant message will be returned)" }`
-  
-  ---
+
+---
 
 ### ***GET /menu/:id***
 
@@ -227,7 +228,7 @@ Send a GET request to the base URL. No headers or body is required for this test
   * **Code:** 500 SERVER ERROR <br />
     **Content:** `{ message: "(relevant message will be returned)" }`
   
-  ---
+---
 
 ### ***GET /reviews/:id***
 
