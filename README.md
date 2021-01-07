@@ -16,6 +16,8 @@ Send a GET request to the base URL. No headers or body is required for this test
 |----------|----------|----------|----------|
 |POST | /auth/register | registers a new user | N |
 |POST | /auth/login | login an existing user | N |
+|GET | /favorites/:id | returns favorite trucks for that user_id | Y |
+|POST | /favorites/ | save a favorite truck to db | Y |
 |GET | /menu/:id | returns menu when given truck id | Y |
 |GET | /reviews/:id | returns all reviews for a truck id | Y |
 |POST | /reviews | adds new review to the db | Y |
@@ -96,6 +98,83 @@ Send a GET request to the base URL. No headers or body is required for this test
 
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{ message: "Invalid credentials." }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ message: "(relevant message will be returned)" }`
+  
+  ---
+
+### ***GET /favorites/:id***
+
+*  **Request Body:**
+ 
+   ```
+  no body required. empty body accepted.
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+    ```
+  [
+    {
+        "fav_id": 5,
+        "user_id": 2,
+        "truck_id": 3,
+        "truck_name": "Bahn Mi",
+        "cusine_type": "Thai"
+    },
+    {
+        "fav_id": 6,
+        "user_id": 2,
+        "truck_id": 7,
+        "truck_name": "Expensive Smoothies",
+        "cusine_type": "Health and Wellness"
+    },
+  ]
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: 'Provided user_id has no saved favorites.' }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ message: "(relevant message will be returned)" }`
+  
+    ---
+### ***POST /favorites***
+
+*  **Request Body:**
+ 
+   ```
+   {
+     "user_id": 1,          #required
+     "truck_id": 7,         #required
+   }
+   ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+    ```
+    {
+    "message": "Successfully updated user favorites."
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 403 BAD REQUEST <br />
+    **Content:** `{ message: 'This user_id has already faved this truck_id.' }`
 
   OR
 
