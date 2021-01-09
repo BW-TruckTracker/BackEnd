@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
+
 const Favorites = require("./favorites-model");
+const restricted = require("../auth/restrict-access-middleware.js");
 
 ///ENDPOINTS
-router.get("/:id", (req, res) => {
+router.get("/:id", restricted, (req, res) => {
   //baseurl/api/favorites/:id
   //where id is user_id
 
@@ -24,7 +26,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", restricted, (req, res, next) => {
   //baseurl/api/favorites/
 
   const { user_id, truck_id } = req.body;
@@ -52,7 +54,7 @@ router.post("/", (req, res, next) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", restricted, (req, res) => {
   //baseurl/api/favorites/:id
   const { id } = req.params;
   Favorites.delete(id)

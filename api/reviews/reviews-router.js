@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+
 const Reviews = require('./reviews-model');
+const restricted = require("../auth/restrict-access-middleware.js");
 
 /// ENDPOINTS
-router.get('/:id', (req, res) => {
+router.get('/:id',  restricted, (req, res) => {
     //baseurl/api/reviews/:id
     const { id } = req.params
     Reviews.getById(id)
@@ -20,7 +22,7 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('/', async (req, res) => {
+router.post('/',  restricted, async (req, res) => {
     //baseurl/api/reviews/
     const review = req.body
     try{

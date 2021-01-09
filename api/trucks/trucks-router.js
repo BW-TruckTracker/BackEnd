@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Trucks = require('./trucks-model.js');
 
 const Reviews = require('../reviews/reviews-model.js'); //neccessary for including star count on truck objects
+const restricted = require("../auth/restrict-access-middleware.js");
 
 /// ENDPOINTS
 router.get('/', (req, res) => {
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', restricted, async (req, res) => {
     // baseURL/api/trucks/:id
 
     const { id } = req.params;
@@ -38,7 +39,7 @@ router.get('/:id', async (req, res) => {
 /// HELPER FUNCTION
 async function calcAvgStars(obj) {
 
-    //first, collect all stars into one array
+    //first, collect all scores into one array
     const results = [];
     obj.forEach(element => {
         results.push(element['food_quality_star_count'], element['service_star_count'], element['cleanliness_star_count'])
