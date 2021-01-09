@@ -1,19 +1,11 @@
 const express = require('express')
 const router = express.Router()
+
 const Menus = require('./menus-model')
+const restricted = require("../auth/restrict-access-middleware.js");
 
-router.get('/', (req, res) => {
-    Menus.get()
-        .then(menus => {
-            res.status(200).json(menus)
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({ message: err.message })
-        })
-})
-
-router.get('/:id', (req, res) => {
+router.get('/:id',  restricted, (req, res) => {
+    // baseURL/api/menus/:id
     const { id } = req.params
     Menus.getById(id)
         .then(data => {
