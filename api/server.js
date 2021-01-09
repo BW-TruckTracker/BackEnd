@@ -19,7 +19,7 @@ server.use(express.json());
 
 /// API Routes
 server.use('/api/auth', authRouter); // for register and login. generates token.
-server.use('/api/menu', menusRouter)
+server.use('/api/menus', menusRouter)
 server.use('/api/trucks', trucksRouter);
 server.use('/api/reviews', reviewsRouter);
 server.use('/api/favorites', favoritesRouter)
