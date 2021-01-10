@@ -10,7 +10,7 @@ module.exports = {
         };
 
         const options = {
-            expiresIn: '900s', // subject to change.
+            expiresIn: '1d',
         };
         return jwt.sign(payload, jwtSecret, options);
     }
